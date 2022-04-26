@@ -5,7 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
+/**
+ * @Type PlatDomain.java
+ * @Desc the model for plat
+ * @author yuan.cao@utbm.fr
+ * @date 26/04/2022 22:35
+ * @version 1.0
+ */
 @Entity
 @Table(name = "menu")
 @Data

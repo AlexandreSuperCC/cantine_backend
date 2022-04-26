@@ -15,6 +15,12 @@ import java.util.List;
  */
 public interface IPlatDao extends JpaRepository<PlatDomain,Integer> {
 
+    /**
+    * @DESC get all active plats
+    * @return the list of plats
+    * @data 26/04/2022 22:37
+    * @author yuan.cao@utbm.fr
+    **/
     @Query(nativeQuery=true, value ="select m.id,m.name,m.type,CAST(m.rate AS DECIMAL(10,2)) rate_cast,m.content,m.amount,m.day,m.imgurl,m.ts from menu m where m.dr=0 order by m.day,m.type,rate_cast desc ")
     List<PlatDomain> getAllActivePlats();
 }
