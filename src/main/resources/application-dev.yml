@@ -1,0 +1,24 @@
+#项目运行端口
+server:
+  port: 8080
+
+spring:
+  #DataSource配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/mo_cantine?useSSL=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+    username: root
+    password: '0423'
+  jpa:
+    database: mysql
+    # Show or not log for each sql query
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      # Hibernate ddl auto (create, create-drop, update)
+      ddl-auto: update
+      naming_strategy: org.hibernate.cfg.DefaultNamingStrategy
+    properties:
+      hibernate:
+        # stripped before adding them to the entity manager
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
