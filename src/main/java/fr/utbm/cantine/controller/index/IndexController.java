@@ -7,9 +7,7 @@ import fr.utbm.cantine.service.INewsService;
 import fr.utbm.cantine.service.IPlatService;
 import fr.utbm.cantine.utils.APIResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,10 +28,12 @@ public class IndexController extends BaseController {
     @Autowired
     INewsService iNewsService;
 
-
+    @ResponseBody
     @GetMapping("queryAllPlats")
-    public APIResponse<List<PlatDomain>> getAllPlats(){
-        return iPlatService.queryAllPlats();
+    public APIResponse<List<PlatDomain>> getAllPlats(
+            @RequestParam(value = "cid",required = true)
+                    Integer cid){
+        return iPlatService.queryAllPlats(cid);
     }
 
     @GetMapping("queryAllNews")
