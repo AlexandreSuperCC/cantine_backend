@@ -10,29 +10,30 @@ create table `t_cantine` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-create table "menu" (
-    "id" int(11) NOT NULL,
-    "name" varchar(50) NOT NULL DEFAULT '',
-    "type" int(11) NOT NULL DEFAULT 3, -- 0 entrée, 1 plat, 2 dessert, 3 garnitures, 4 autres
-    "rate" varchar(10),
-    "content" text,
-    "amount" int(11),
-    "day" int(11),
-    "imgurl" varchar(100),
-    "ts" varchar(50),
-    "cid" int(11),
-    "dr" int(11) NOT NULL DEFAULT 0, --0 active, 1 inactive
-    primary key("id")
+create table `menu` (
+    `id` int(11) NOT NULL,
+    `name` varchar(50) NOT NULL DEFAULT '',
+    `type` int(11) NOT NULL DEFAULT 3, -- 0 entrée, 1 plat, 2 dessert, 3 garnitures, 4 autres
+    `rate` varchar(10),
+    `content` text,
+    `amount` int(11),
+    `day` int(11),
+    `imgurl` varchar(100),
+    `ts` varchar(50),
+    `cid` int(11),
+    `dr` int(11) NOT NULL DEFAULT 0, -- 0 active, 1 inactive
+    primary key(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-create table "news"(
-    "id" int(11) NOT NULL,
-    "content" varchar(200),
-    "time" varchar(20),
-    primary key("id")
+create table `news`(
+    `id` int(11) NOT NULL,
+    `content` varchar(200),
+    `time` varchar(20),
+    `cid` int(11),
+    primary key(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert into "menu"("id","name","type","rate","content","amount","day","imgurl","ts","dr")
+insert into menu (id,name,type,rate,content,amount,day,imgurl,ts,dr)
 values
     (1,"Poisson pané",1,'',"Poisson",55,0,NULL,NULL,0),
     (2,"Omelette aux champignons", 1, '', "Oeuf, Champignon", 12, 0, NULL, NULL, 0),
