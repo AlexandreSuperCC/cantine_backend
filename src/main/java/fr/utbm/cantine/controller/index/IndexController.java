@@ -1,7 +1,9 @@
 package fr.utbm.cantine.controller.index;
 
 import fr.utbm.cantine.controller.BaseController;
+import fr.utbm.cantine.model.NewsDomain;
 import fr.utbm.cantine.model.PlatDomain;
+import fr.utbm.cantine.service.INewsService;
 import fr.utbm.cantine.service.IPlatService;
 import fr.utbm.cantine.utils.APIResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +27,19 @@ public class IndexController extends BaseController {
     @Autowired
     IPlatService iPlatService;
 
+    @Autowired
+    INewsService iNewsService;
+
 
     @GetMapping("queryAllPlats")
     public APIResponse<List<PlatDomain>> getAllPlats(){
         return iPlatService.queryAllPlats();
     }
 
-
-
+    @GetMapping("queryAllNews")
+    public APIResponse<List<NewsDomain>> getAllNews () {
+        return iNewsService.queryAllNews();
+    }
 
     @Override
     public APIResponse getBaseData() {
