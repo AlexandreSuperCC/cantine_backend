@@ -1,5 +1,14 @@
 create database mo_cantine;
 use mo_cantine;
+
+create table `t_cantine` (
+    `id` int(11) NOT NULL,
+    `name` varchar(50) NOT NULL DEFAULT '',
+    `location` varchar(50),
+    `dr` int(11) NOT NULL DEFAULT 0 COMMENT '0 active, 1 inactive',
+    primary key(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 create table `menu` (
     `id` int(11) NOT NULL,
     `name` varchar(50) NOT NULL DEFAULT '',
@@ -11,6 +20,7 @@ create table `menu` (
     `imgurl` varchar(100),
     `ts` varchar(50),
     `dr` int(11) NOT NULL DEFAULT 0 COMMENT '0 active, 1 inactive',
+    `cid` int(11),
     primary key(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
