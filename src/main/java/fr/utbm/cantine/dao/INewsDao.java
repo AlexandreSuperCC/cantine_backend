@@ -12,13 +12,4 @@ import java.util.List;
 
 public interface INewsDao extends JpaRepository<NewsDomain,Integer> {
 
-    @Query(nativeQuery=true, value ="select * from news n")
-    List<NewsDomain> getAllNews();
-
-    @Query(value = "insert into news value(?,?,?)", nativeQuery = true)
-    @Transactional
-    @Modifying
-    public int createNewsBy(@Param("id")Integer id, @Param("content") String content, @Param("time") String time);
-
-
 }
