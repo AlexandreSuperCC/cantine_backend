@@ -14,8 +14,8 @@ public class PlatServiceImpl implements IPlatService {
     IPlatDao iPlatDao;
 
     @Override
-    public APIResponse queryAllPlats() {
-        List<PlatDomain> listPlats = iPlatDao.getAllActivePlats();
+    public APIResponse queryAllPlats(Integer cid) {
+        List<PlatDomain> listPlats = iPlatDao.getAllActivePlats(cid);
         return APIResponse.success(listPlats);
     }
 

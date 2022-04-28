@@ -15,5 +15,5 @@ public interface IPlatService {
     * @data 26/04/2022 20:28
     * @author yuan.cao@utbm.fr
     **/
-    public APIResponse queryAllPlats();
+    APIResponse queryAllPlats(Integer cid);
 }

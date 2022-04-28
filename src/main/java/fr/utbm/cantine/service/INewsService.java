@@ -4,6 +4,6 @@ import fr.utbm.cantine.utils.APIResponse;
 
 public interface INewsService {
 
-    public APIResponse queryAllNews();
+    APIResponse queryNewsBycid(Integer cid);
 
 }

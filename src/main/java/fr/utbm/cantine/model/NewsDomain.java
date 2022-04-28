@@ -22,6 +22,9 @@ public class NewsDomain {
     @Column(name = "time")
     private String time;
 
+    @Column(name = "cid")
+    private Integer cid;
+
     @Override
     public String toString() {
         return "NewsDomain{" +

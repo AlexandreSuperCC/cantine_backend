@@ -8,15 +8,15 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/mo_cantine?useSSL=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
     username: root
-    password: ''
+    password: '0423'
   jpa:
     database: mysql
     # Show or not log for each sql query
     show-sql: true
-    generate-ddl: true
+    generate-ddl: false
     hibernate:
       # Hibernate ddl auto (create, create-drop, update)
-      ddl-auto: update
+      ddl-auto: none
       naming_strategy: org.hibernate.cfg.DefaultNamingStrategy
     properties:
       hibernate:

@@ -14,8 +14,8 @@ public class NewsServiceImpl implements INewsService {
     INewsDao iNewsDao;
 
     @Override
-    public APIResponse queryAllNews(){
-        List<NewsDomain> listNews=iNewsDao.findAll();
+    public APIResponse queryNewsBycid(Integer cid){
+        List<NewsDomain> listNews=iNewsDao.getAllNewsBycid(cid);
         return APIResponse.success(listNews);
     }
 
