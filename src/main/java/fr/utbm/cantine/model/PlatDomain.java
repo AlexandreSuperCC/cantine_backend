@@ -46,6 +46,9 @@ public class PlatDomain {
     @Column(name = "ts")
     private String ts;
 
+    @Column(name = "cid")
+    private Integer cid;
+
     @Override
     public String toString() {
         return "PlatDomain{" +
