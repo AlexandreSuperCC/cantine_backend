@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @Type WebSocketServer.java
- * @Desc websocket handler class
+ * @Desc WebSocket handler class
  * @Doc https://blog.csdn.net/qq_31960623/article/details/114131424
  * @author yuan.cao@utbm.fr
  * @date 28/04/2022 20:44
@@ -115,7 +115,7 @@ public class WebSocketServer {
     @OnError
     public void onError(Session session, Throwable error) {
 
-        log.error("用户错误:"+this.cantineID+",原因:"+error.getMessage());
+        log.error("Client's error : "+this.cantineID+", cause :"+error.getMessage());
         error.printStackTrace();
     }
 

@@ -6,7 +6,7 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 /**
  * @Type WebSocketConfig.java
- * @Desc configuration of websocket
+ * @Desc configuration of WebSocket
  * @author yuan.cao@utbm.fr
  * @date 28/04/2022 19:25
  * @version 1.0
