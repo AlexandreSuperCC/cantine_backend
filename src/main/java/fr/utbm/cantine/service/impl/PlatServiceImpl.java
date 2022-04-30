@@ -19,5 +19,10 @@ public class PlatServiceImpl implements IPlatService {
         return APIResponse.success(listPlats);
     }
 
+    @Override
+    public List<PlatDomain> queryaPlat(Integer id){
+        return iPlatDao.getaPlat(id);
+    }
+
 
 }

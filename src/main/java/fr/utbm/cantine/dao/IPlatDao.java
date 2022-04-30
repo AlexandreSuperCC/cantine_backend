@@ -24,4 +24,7 @@ public interface IPlatDao extends JpaRepository<PlatDomain,Integer> {
     **/
     @Query(nativeQuery=true, value ="select m.id,m.name,m.type,CAST(m.rate AS DECIMAL(10,2)) rate_cast,m.ctimes,m.content,m.amount,m.day,m.imgurl,m.cid,m.ts from menu m where m.dr=0 and m.cid = :cid order by m.day,m.type,rate_cast desc ")
     List<PlatDomain> getAllActivePlats(@Param(value = "cid") Integer cid);
+
+    @Query(nativeQuery=true, value ="select m.id,m.name,m.type,CAST(m.rate AS DECIMAL(10,2)) rate_cast,m.ctimes,m.content,m.amount,m.day,m.imgurl,m.cid,m.ts from menu m where m.id = :id ")
+    List<PlatDomain> getaPlat(@Param(value = "id") Integer id);
 }

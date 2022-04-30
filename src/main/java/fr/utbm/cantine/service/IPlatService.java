@@ -1,6 +1,11 @@
 package fr.utbm.cantine.service;
 
+import fr.utbm.cantine.dao.IPlatDao;
+import fr.utbm.cantine.model.PlatDomain;
 import fr.utbm.cantine.utils.APIResponse;
+
+import java.util.List;
+
 /**
  * @Type IPlatService.java
  * @Desc interface for the plats in the index page
@@ -16,4 +21,6 @@ public interface IPlatService {
     * @author yuan.cao@utbm.fr
     **/
     APIResponse queryAllPlats(Integer cid);
+
+    List<PlatDomain> queryaPlat(Integer id);
 }

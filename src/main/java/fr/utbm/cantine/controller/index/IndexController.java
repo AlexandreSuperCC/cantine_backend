@@ -43,6 +43,14 @@ public class IndexController extends BaseController {
         return iNewsService.queryNewsBycid(cid);
     }
 
+    @GetMapping("queryaPlat")
+    public List<PlatDomain> getaPlat(
+            @RequestParam(value = "id",required = true)
+                    Integer id) {
+        return iPlatService.queryaPlat(id);
+    }
+
+
     @Override
     public APIResponse getBaseData() {
         return null;
