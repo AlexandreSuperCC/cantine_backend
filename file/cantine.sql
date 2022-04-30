@@ -25,6 +25,7 @@ create table `menu` (
     `ts` varchar(50),
     `cid` int(11),
     `dr` int(11) NOT NULL DEFAULT 0, -- 0 active, 1 inactive
+    `ctimes` int(11) NOT NULL DEFAULT 0,
     primary key(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

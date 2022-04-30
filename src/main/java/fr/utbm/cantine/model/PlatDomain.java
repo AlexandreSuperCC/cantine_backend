@@ -49,6 +49,9 @@ public class PlatDomain {
     @Column(name = "cid")
     private Integer cid;
 
+    @Column(name ="ctimes")
+    private Integer ctimes;
+
     @Override
     public String toString() {
         return "PlatDomain{" +
