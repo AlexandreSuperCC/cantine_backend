@@ -1,4 +1,4 @@
-package fr.utbm.cantine.config;
+package fr.utbm.cantine.config.websocket;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -24,7 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Component
 @Slf4j
-@ServerEndpoint("/api/pushMessage/{cantineID}")
+@ServerEndpoint("/ws/connection/{cantineID}")
 public class WebSocketServer {
 
     private static Logger log = LoggerFactory.getLogger(WebSocketServer.class);
@@ -41,8 +41,7 @@ public class WebSocketServer {
     /*********************************core configuration code*********************************/
 
     /**
-     * 连接建立成
-     * 功调用的方法
+     * the method to call if the connection is done
      */
     @OnOpen
     public void onOpen(Session session,@PathParam("cantineID") String cantineID) {
@@ -63,8 +62,7 @@ public class WebSocketServer {
     }
 
     /**
-     * 连接关闭
-     * 调用的方法
+     * the method to call when the connection is over
      */
     @OnClose
     public void onClose() {
@@ -77,14 +75,13 @@ public class WebSocketServer {
     }
 
     /**
-     * 收到客户端消
-     * 息后调用的方法
+     * The method to call after receiving message from clients
      * @param message
-     * 客户端发送过来的消息
+     * message coming from the client
      **/
     @OnMessage
     public void onMessage(String message, Session session) {
-        log.info("用户消息:"+cantineID+",报文:"+message);
+        log.info("Client : "+cantineID+" 's message: : "+message);
         //可以群发消息
         //消息保存到数据库、redis
         if(StringUtils.isNotBlank(message)){
@@ -93,13 +90,13 @@ public class WebSocketServer {
                 JSONObject jsonObject = JSON.parseObject(message);
                 //追加发送人(防止串改)
                 jsonObject.put("from cantineID: ",this.cantineID);
-                String tocantineID=jsonObject.getString("tocantineID");
-                //传送给对应tocantineID用户的websocket
-                if(StringUtils.isNotBlank(tocantineID)&&webSocketMap.containsKey(tocantineID)){
-                    webSocketMap.get(tocantineID).sendMessage(message);
+                String toCanteenID=jsonObject.getString("toCanteenID");
+                //传送给对应toCanteenID用户的websocket
+                if(StringUtils.isNotBlank(toCanteenID)&&webSocketMap.containsKey(toCanteenID)){
+                    webSocketMap.get(toCanteenID).sendMessage(message);
                 }else{
                     //否则不在这个服务器上，发送到mysql或者redis
-                    log.error("请求的cantineID:"+tocantineID+"不在该服务器上");
+                    log.error("The requested canteenID: "+toCanteenID+" is not on the server");
                 }
             }catch (Exception e){
                 e.printStackTrace();
@@ -124,8 +121,7 @@ public class WebSocketServer {
     /*********************************core sender code*********************************/
 
     /**
-     * 实现服务
-     * 器主动推送
+     * server pushes message
      */
     public void sendMessage(String message) {
         try {
@@ -136,8 +132,7 @@ public class WebSocketServer {
     }
 
     /**
-     *发送自定
-     *义消息
+     * send custom message
      **/
     public static void sendInfo(String message, String cantineID) {
         log.info("Send message to : "+cantineID+"，text : "+message);
@@ -151,8 +146,7 @@ public class WebSocketServer {
     /*********************************core sender code*********************************/
 
     /**
-     * 获得此时的
-     * 在线人数
+     * get online number
      * @return
      */
     public static synchronized int getOnlineCount() {
@@ -160,16 +154,14 @@ public class WebSocketServer {
     }
 
     /**
-     * 在线人
-     * 数加1
+     * online number +1
      */
     public static synchronized void addOnlineCount() {
         WebSocketServer.onlineCount++;
     }
 
     /**
-     * 在线人
-     * 数减1
+     * online number -1
      */
     public static synchronized void subOnlineCount() {
         WebSocketServer.onlineCount--;

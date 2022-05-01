@@ -7,7 +7,7 @@ package fr.utbm.cantine.exception;
  * @date 26/04/2022 13:12
  * @version 1.0
  */
-public class BusinessException extends Exception{
+public class BusinessException extends RuntimeException{
     protected String errorCode;
 
     public String getErrorCode() {
