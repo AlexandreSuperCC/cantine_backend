@@ -24,5 +24,9 @@ public class PlatServiceImpl implements IPlatService {
         return iPlatDao.getaPlat(id);
     }
 
+    @Override
+    public void updateComment(Integer id,String rate,Integer ctimes){
+        iPlatDao.updateComment(id,rate,ctimes);
+    }
 
 }

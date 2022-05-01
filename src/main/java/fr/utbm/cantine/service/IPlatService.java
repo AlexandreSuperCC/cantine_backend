@@ -23,4 +23,6 @@ public interface IPlatService {
     APIResponse queryAllPlats(Integer cid);
 
     List<PlatDomain> queryaPlat(Integer id);
+
+    void updateComment(Integer id,String rate,Integer ctimes);
 }
