@@ -20,9 +20,9 @@ public class PlatCapturerDomain extends BaseCapturerDomain {
      */
     private Integer pid;
     /**
-     * the number of weight received
+     * the number of weight received/the rest number of the plat
      */
-    private String weight;
+    private String weightOrNumber;
     /**
      * the id of the canteen
      */
@@ -36,12 +36,12 @@ public class PlatCapturerDomain extends BaseCapturerDomain {
         this.pid = pid;
     }
 
-    public String getWeight() {
-        return weight;
+    public String getWeightOrNumber() {
+        return weightOrNumber;
     }
 
-    public void setWeight(String weight) {
-        this.weight = weight;
+    public void setWeightOrNumber(String weightOrNumber) {
+        this.weightOrNumber = weightOrNumber;
     }
 
     public Integer getCid() {
@@ -57,16 +57,18 @@ public class PlatCapturerDomain extends BaseCapturerDomain {
         //required parameters
         private final Integer pid;
         private final Integer cid;
-        private final String weight;
+        private final String weightOrNumber;
+        private final String token;
 
         //optional parameters - initialized to default values
         private String name = "default_capturer";
         private Integer id = -1;
 
-        public Builder(Integer pid,Integer cid,String weight){
+        public Builder(Integer pid,Integer cid,String weightOrNumber,String token){
             this.pid = pid;
             this.cid = cid;
-            this.weight = weight;
+            this.weightOrNumber = weightOrNumber;
+            this.token = token;
         }
         public Builder id(Integer id){this.id=id;return this;}
         public Builder name(String name){this.name=name;return this;}
@@ -79,7 +81,8 @@ public class PlatCapturerDomain extends BaseCapturerDomain {
         this.name = builder.name;
         this.cid = builder.cid;
         this.pid = builder.pid;
-        this.weight = builder.weight;
+        this.weightOrNumber = builder.weightOrNumber;
+        this.token = builder.token;
     }
     /*builder pattern*/
 

@@ -8,5 +8,19 @@ package fr.utbm.cantine.utils;
  */
 public class CommonUtils {
 
+    /**
+    * @DESC return the closest floating-point value that is equal to a mathematical integer and cast it.
+    * @param Double
+    * @return Integer
+    * @data 02/05/2022 00:28
+    * @author yuan.cao@utbm.fr
+    **/
+    public static Integer doubleToInteger(Double d){
+        if (d==null){
+            return null;
+        }
+        double di = Math.rint(d);
+        return Integer.valueOf( (int) di);
+    }
 
 }

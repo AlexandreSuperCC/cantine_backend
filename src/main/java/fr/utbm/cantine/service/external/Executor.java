@@ -1,5 +1,6 @@
 package fr.utbm.cantine.service.external;
 
+import fr.utbm.cantine.exception.BusinessException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,10 +35,11 @@ public abstract class Executor <T>{
     * @data 01/05/2022 12:23
     * @author yuan.cao@utbm.fr
     **/
-    public synchronized String exec(){
+    public synchronized String exec() throws BusinessException{
         log.info("Now we have "+toExecuteList.size()+" objects to execute");
-        toExecuteList.stream().forEach(o ->
-                this.execute(o));
+        for(T object: toExecuteList){
+            this.execute(object);
+        }
         toExecuteList.clear();
         return "success";
     }
@@ -49,5 +51,5 @@ public abstract class Executor <T>{
     * @data 30/04/2022 15:00
     * @author yuan.cao@utbm.fr
     **/
-    protected abstract String execute(T curObject);
+    protected abstract String execute(T curObject) throws BusinessException;
 }
