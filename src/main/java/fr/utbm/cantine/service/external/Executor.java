@@ -29,12 +29,12 @@ public abstract class Executor <T>{
     }
 
     /**
-    * @DESC the unified method to execute
+    * @DESC the unified method to execute, thread-safe
     * @return the result of the execution
     * @data 01/05/2022 12:23
     * @author yuan.cao@utbm.fr
     **/
-    public String exec(){
+    public synchronized String exec(){
         log.info("Now we have "+toExecuteList.size()+" objects to execute");
         toExecuteList.stream().forEach(o ->
                 this.execute(o));
