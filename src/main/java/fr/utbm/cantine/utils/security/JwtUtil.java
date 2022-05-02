@@ -24,7 +24,11 @@ import java.util.Map;
 @PropertySource(value = {"classpath:jwt.properties"})
 public class JwtUtil {
     private static String privateKey;
-    private static String limitTime; // 过期时间 毫秒
+    /**
+     * the time before expired for hardware
+     */
+    private static String limitTimeHardware;
+    private static String limitTimeSession;
 
     public String getPrivateKey() {
         return privateKey;
@@ -34,27 +38,66 @@ public class JwtUtil {
         JwtUtil.privateKey = privateKey;
     }
 
-    public String getLimitTime() {
-        return limitTime;
+    public String getLimitTimeHardware() {
+        return limitTimeHardware;
     }
 
-    public void setLimitTime(String limitTime) {
-        JwtUtil.limitTime = limitTime;
+    public String getLimitTimeSession() {
+        return limitTimeSession;
+    }
+
+    public void setLimitTimeHardware(String limitTimeHardware) {
+        JwtUtil.limitTimeHardware = limitTimeHardware;
+    }
+
+    public void setLimitTimeSession(String limitTimeSession) {
+        JwtUtil.limitTimeSession = limitTimeSession;
     }
 
     /**
-     * Generate signature
+     * Generate signature for hardware
      * Public key encryption and private key decryption; Private key signature, public key signature verification.
-     * @param
-     * @return
+     * @param hardwareName the name of hardware
+     * @param userId the id of the user
+     * @return the token created for hardware
      */
+    public static String signForHardware(String hardwareName,String userId){
+        try {
+
+            assert limitTimeHardware!=null&&privateKey!=null;
+
+            //expired time
+            Date date = new Date( System.currentTimeMillis()+Long.parseLong(limitTimeHardware));
+            Algorithm algorithm = Algorithm.HMAC256(privateKey);
+            //set header info
+            Map<String,Object> header = new HashMap<>(2);
+            header.put("typ","JWT");
+            header.put("alg","HS256");
+            return JWT.create()
+                    .withHeader(header)
+                    .withClaim("hardwareName",hardwareName)
+                    .withClaim("userId",userId)
+                    .withExpiresAt(date)
+                    .sign(algorithm);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+    * @DESC general sign method
+    * @return the token created
+    * @data 02/05/2022 16:49
+    * @author yuan.cao@utbm.fr
+    **/
     public static String sign(String username, String userId){
         try {
 
-            assert limitTime!=null&&privateKey!=null;
+            assert limitTimeSession!=null&&privateKey!=null;
 
             //expired time
-            Date date = new Date(System.currentTimeMillis()+Long.parseLong(limitTime));
+            Date date = new Date(System.currentTimeMillis()+Long.parseLong(limitTimeSession));
             Algorithm algorithm = Algorithm.HMAC256(privateKey);
             //set header info
             Map<String,Object> header = new HashMap<>(2);

@@ -23,7 +23,11 @@ public abstract class Executor <T>{
      */
     protected List<T> toExecuteList = new ArrayList<>();
 
-    public void addToExecuteList(T toExecuteObject) {
+    /**
+     * thread-safe
+     * @param toExecuteObject the object wait to be executed
+     */
+    public synchronized void addToExecuteList(T toExecuteObject) {
         if (toExecuteObject != null){
             toExecuteList.add(toExecuteObject);
         }
