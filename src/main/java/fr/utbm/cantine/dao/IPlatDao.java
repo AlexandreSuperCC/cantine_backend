@@ -34,4 +34,16 @@ public interface IPlatDao extends JpaRepository<PlatDomain,Integer> {
     @Transactional
     @Query(nativeQuery=true, value ="update menu m set m.rate = :rate,m.ctimes=:ctimes where m.id=:id")
     public int updateComment(@Param("id") Integer id,@Param("rate") String rate,@Param("ctimes") Integer ctimes);
+
+    /**
+    * @DESC update the amount of the plat
+    * @return the result of update
+    * @data 01/05/2022 21:43
+    * @author yuan.cao@utbm.fr
+    **/
+    @Modifying
+    @Transactional
+    @Query(nativeQuery=true, value ="update menu m set m.amount = :amount where m.id=:id and m.dr != 1")
+    int updateAmount(@Param("id") Integer id,@Param("amount") Integer amount);
+
 }

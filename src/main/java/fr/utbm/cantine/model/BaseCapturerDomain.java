@@ -16,7 +16,10 @@ public class BaseCapturerDomain {
      * the name of the capturer
      */
     protected String name;
-
+    /**
+     * the token for security proposal
+     */
+    protected String token;
 
     public Integer getId() {
         return id;
@@ -32,5 +35,13 @@ public class BaseCapturerDomain {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

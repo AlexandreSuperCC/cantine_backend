@@ -2,6 +2,7 @@ package fr.utbm.cantine.controller.external;
 
 import fr.utbm.cantine.constant.CommonConstant;
 import fr.utbm.cantine.controller.BaseController;
+import fr.utbm.cantine.exception.BusinessException;
 import fr.utbm.cantine.model.PlatCapturerDomain;
 import fr.utbm.cantine.service.external.Executor;
 import fr.utbm.cantine.service.external.PlatExecutor;
@@ -27,14 +28,21 @@ public class CapturerController extends BaseController {
     @GetMapping(value = "fromCapturer")
     public APIResponse receiveFromCapturer(@RequestParam(value = "pid",required = true)Integer pid,
                                            @RequestParam(value = "cid",required = true) Integer cid,
-                                           @RequestParam(value = "weight",required = true) String weight){
-        PlatCapturerDomain platCapturerDomain = new PlatCapturerDomain.Builder(pid, cid, weight)
+                                           @RequestParam(value = "weight",required = true) String weight,
+                                           @RequestParam(value = "token",required = true) String token
+                                           ){
+        PlatCapturerDomain platCapturerDomain = new PlatCapturerDomain.Builder(pid, cid, weight,token)
                 .name(CommonConstant.Capturer.DEFAULT_PLATCAPTURER_NAME)
                 .build();
 
         Executor<PlatCapturerDomain> executor = PlatExecutor.getInstance();
         executor.addToExecuteList(platCapturerDomain);
-        String res = executor.exec();
+        String res = null;
+        try{
+            res = executor.exec();
+        }catch (BusinessException be){
+            return APIResponse.fail(be.getErrorCode());
+        }
         return APIResponse.success(res);
     }
 

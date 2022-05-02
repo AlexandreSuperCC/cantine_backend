@@ -5,9 +5,15 @@ import com.alibaba.fastjson.JSON;
 import fr.utbm.cantine.config.websocket.WebSocketServer;
 import fr.utbm.cantine.constant.CommonConstant;
 import fr.utbm.cantine.constant.ErrorConstant;
+import fr.utbm.cantine.dao.IPlatDao;
 import fr.utbm.cantine.exception.BusinessException;
 import fr.utbm.cantine.model.PlatCapturerDomain;
+import fr.utbm.cantine.service.IPlatService;
+import fr.utbm.cantine.service.impl.PlatServiceImpl;
 import fr.utbm.cantine.utils.APIResponse;
+import fr.utbm.cantine.utils.CommonUtils;
+import fr.utbm.cantine.utils.SpringUtil;
+import fr.utbm.cantine.utils.security.JwtUtil;
 
 import java.util.concurrent.ConcurrentHashMap;
 /**
@@ -22,7 +28,7 @@ public class PlatExecutor extends Executor <PlatCapturerDomain>{
     /**
      * the id of the plat, the weight of each plat estimated
      */
-    private static ConcurrentHashMap<Integer, String> platWeightMap = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<Integer, Double> platWeightMap = new ConcurrentHashMap<>();
 
     /**
      * allow synchronization and uniqueness for multiple threads
@@ -53,45 +59,69 @@ public class PlatExecutor extends Executor <PlatCapturerDomain>{
      * second we calculate the change of each plat and update the weight of each plat
      * then we send the estimated the number of the rest for each plat using WebSocket
     * @param
-    * @return
+    * @return curObject : the current weight of the plat
     * @data 01/05/2022 12:47
     * @author yuan.cao@utbm.fr
     **/
     @Override
-    protected String execute(PlatCapturerDomain curObject) {
+    protected String execute(PlatCapturerDomain curObject) throws BusinessException{
+        Boolean changeable = false;//flag to determine if it should be sent to client and update in database
+        Integer rpnInt = 9999;//the rest number of the plat
         if (curObject==null
                 ||curObject.getPid()==null
-                ||curObject.getWeight()==null
+                ||curObject.getWeightOrNumber()==null
                 ||curObject.getCid()==null
+                ||curObject.getToken()==null
         ){
             throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
         }
 
+        /**
+         * for security proposal, each message should be legal
+         */
+        String token = curObject.getToken();
+        assert token!=null;
+        if(!JwtUtil.verify(token)){
+            throw BusinessException.withErrorCode(ErrorConstant.Security.JWT_UNAUTHORIZED);
+        }
+
         /*core weight calculation code*/
-        Double curWeight = Double.parseDouble(curObject.getWeight());
+        Double curWeight = Double.parseDouble(curObject.getWeightOrNumber());
         Integer curPlatId = curObject.getPid();
         if (platWeightMap.containsKey(curPlatId)){//old plat
-            Double lastWeight = Double.parseDouble(platWeightMap.get(curPlatId));
+            Double lastWeight = platWeightMap.get(curPlatId);
             Double curDifference = lastWeight-curWeight;
-            if (Math.abs(curDifference)  <= CommonConstant.Calculation.DEGREE_ACCURACY*lastWeight){
-                String newWeight = String.valueOf ((lastWeight+curWeight)/2);
-                platWeightMap.put(curPlatId,newWeight);
-                curObject.setWeight(newWeight);
-            }else{
-                curObject.setWeight(String.valueOf(lastWeight));
+            if(curDifference<=0){
+                changeable=false;
+            }else {
+                Double restPlatNumber = curWeight/curDifference;
+                rpnInt = CommonUtils.doubleToInteger(restPlatNumber);
+                curObject.setWeightOrNumber(String.valueOf(rpnInt));
+                platWeightMap.put(curPlatId,curWeight);
+                changeable = true;
             }
         }else{//new plat
-            platWeightMap.put(curPlatId, String.valueOf(curWeight));
+            platWeightMap.put(curPlatId, curWeight);
+            changeable = false;
         }
         /*core weight calculation code*/
 
         String cantineID = String.valueOf(curObject.getCid());
-        log.info("The current weight for each plat ["+curPlatId+"] in the canteen ["+cantineID+"] is : "+curWeight+" , now sending data to client...");
+        if (changeable){
+            /*update data in database*/
+            IPlatDao iPlatDao = SpringUtil.getBean(IPlatDao.class);
+            Integer res = iPlatDao.updateAmount(curPlatId,rpnInt);
+            if (res!=1) return "fail";
+            /*update data in database*/
+            log.info("The current rest amount of the plat ["+curPlatId+"] in the canteen ["+cantineID+"] is : "+rpnInt+" , now sending data to client...");
 
-        /*inform client code using WebSocket*/
-        String jsonString = JSON.toJSONString(APIResponse.success(curObject));
-        WebSocketServer.sendInfo(jsonString,cantineID);
-        /*inform client code using WebSocket*/
+            /*inform client code using WebSocket*/
+            String jsonString = JSON.toJSONString(APIResponse.success(curObject));
+            WebSocketServer.sendInfo(jsonString,cantineID);
+            /*inform client code using WebSocket*/
+
+        }
+
 
         return "success";
     }

@@ -11,4 +11,7 @@ public interface ErrorConstant {
     class Common {
         public static final String PARAM_IS_EMPTY = "the parameter is empty";
     }
+    class Security {
+        public static final String JWT_UNAUTHORIZED = "wrong token";
+    }
 }

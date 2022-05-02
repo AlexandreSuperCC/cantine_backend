@@ -1,6 +1,5 @@
 package fr.utbm.cantine.service;
 
-import fr.utbm.cantine.dao.IPlatDao;
 import fr.utbm.cantine.model.PlatDomain;
 import fr.utbm.cantine.utils.APIResponse;
 
