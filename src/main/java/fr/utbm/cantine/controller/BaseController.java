@@ -15,5 +15,13 @@ import org.springframework.stereotype.Controller;
 public abstract class BaseController {
     private static final Logger LOGGER = LogManager.getLogger(BaseController.class);
 
-    public abstract APIResponse getBaseData();
+    /**
+    * @DESC can be overwrite or not by the subclass
+    * @return
+    * @data 09/05/2022 10:40
+    * @author yuan.cao@utbm.fr
+    **/
+     public APIResponse getBaseData(){
+         return null;
+     }
 }

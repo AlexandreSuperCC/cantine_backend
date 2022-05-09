@@ -45,9 +45,4 @@ public class CapturerController extends BaseController {
         }
         return APIResponse.success(res);
     }
-
-    @Override
-    public APIResponse getBaseData() {
-        return null;
-    }
 }
