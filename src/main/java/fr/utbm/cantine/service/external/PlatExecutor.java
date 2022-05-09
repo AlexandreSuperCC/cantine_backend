@@ -116,7 +116,7 @@ public class PlatExecutor extends Executor <PlatCapturerDomain>{
             log.info("The current rest amount of the plat ["+curPlatId+"] in the canteen ["+cantineID+"] is : "+rpnInt+" , now sending data to client...");
 
             /*inform client code using WebSocket*/
-            String jsonString = JSON.toJSONString(APIResponse.success(curObject));
+            String jsonString = JSON.toJSONString(APIResponse.success(curObject,"plat"));//use msg="plat" here to precise this is the plat info
             WebSocketServer.sendInfo(jsonString,cantineID);
             /*inform client code using WebSocket*/
 
