@@ -41,10 +41,12 @@ create table `user`(
     `id` int(11) NOT NULL,
     `name` varchar(50) NOT NULL,
     `password` varchar(50) NOT NULL,
+    `role` int(11) NOT NULL, -- 0 boss, 1 cook
      primary key(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `mo_cantine`.`user` (`id`, `name`, `password`) VALUES (1, 'admin', 'admin');
+INSERT INTO `mo_cantine`.`user` (`id`, `name`, `password`, `role`) VALUES (1, 'admin', 'admin',0);
+INSERT INTO `mo_cantine`.`user` (`id`, `name`, `password`, `role`) VALUES (1, 'cook', 'cook',1);
 
 insert into menu (id,name,type,rate,content,amount,day,imgurl,cid,ts,dr)
 values

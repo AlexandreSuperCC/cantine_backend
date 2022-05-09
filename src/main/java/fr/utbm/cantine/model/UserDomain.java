@@ -22,12 +22,16 @@ public class UserDomain {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "role")
+    private Integer role;
+
     @Override
     public String toString() {
         return "PlatDomain{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
+                ", role='" + role +
                 '}';
     }
 }
