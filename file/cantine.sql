@@ -37,6 +37,15 @@ create table `news`(
     primary key(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+create table `user`(
+    `id` int(11) NOT NULL,
+    `name` varchar(50) NOT NULL,
+    `password` varchar(50) NOT NULL,
+     primary key(`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `mo_cantine`.`user` (`id`, `name`, `password`) VALUES (1, 'admin', 'admin');
+
 insert into menu (id,name,type,rate,content,amount,day,imgurl,cid,ts,dr)
 values
     (1,"Poisson pané",1,'',"Poisson",55,0,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6yW9NhPNz8n--NfwFffveNDvL16Jt39rWYg&usqp=CAU',1,NULL,0),
