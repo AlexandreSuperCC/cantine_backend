@@ -63,8 +63,4 @@ public class IndexController extends BaseController {
         return "redirect:/queryaPlat?id="+id;
     }
 
-    @Override
-    public APIResponse getBaseData() {
-        return null;
-    }
 }
