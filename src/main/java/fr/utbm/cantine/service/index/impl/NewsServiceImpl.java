@@ -1,8 +1,8 @@
-package fr.utbm.cantine.service.impl;
+package fr.utbm.cantine.service.index.impl;
 
 import fr.utbm.cantine.dao.INewsDao;
 import fr.utbm.cantine.model.NewsDomain;
-import fr.utbm.cantine.service.INewsService;
+import fr.utbm.cantine.service.index.INewsService;
 import fr.utbm.cantine.utils.APIResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public abstract class BaseController {
-    private static final Logger LOGGER = LogManager.getLogger(BaseController.class);
+    protected static final Logger LOGGER = LogManager.getLogger(BaseController.class);
 
     /**
     * @DESC can be overwrite or not by the subclass

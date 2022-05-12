@@ -46,7 +46,8 @@ create table `user`(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `mo_cantine`.`user` (`id`, `name`, `password`, `role`) VALUES (1, 'admin', 'admin',0);
-INSERT INTO `mo_cantine`.`user` (`id`, `name`, `password`, `role`) VALUES (1, 'cook', 'cook',1);
+INSERT INTO `mo_cantine`.`user` (`id`, `name`, `password`, `role`) VALUES (2, 'cook', 'cook',1);
+INSERT INTO `mo_cantine`.`user` (`id`, `name`, `password`, `role`) VALUES (3, 'Yuan Cao', '351ad58134d2110bb7ca0a4e3c8c9dfe',1);
 
 insert into menu (id,name,type,rate,content,amount,day,imgurl,cid,ts,dr)
 values

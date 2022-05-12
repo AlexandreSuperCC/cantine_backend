@@ -1,4 +1,4 @@
-package fr.utbm.cantine.service;
+package fr.utbm.cantine.service.index;
 
 import fr.utbm.cantine.utils.APIResponse;
 

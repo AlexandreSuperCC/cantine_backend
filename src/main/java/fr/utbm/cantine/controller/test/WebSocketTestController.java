@@ -1,7 +1,7 @@
 package fr.utbm.cantine.controller.test;
 
 import fr.utbm.cantine.controller.BaseController;
-import fr.utbm.cantine.service.ITestWebSocket;
+import fr.utbm.cantine.service.test.ITestWebSocket;
 import fr.utbm.cantine.utils.APIResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

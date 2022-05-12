@@ -1,16 +1,10 @@
 package fr.utbm.cantine.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class UserDomain {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,6 +18,41 @@ public class UserDomain {
 
     @Column(name = "role")
     private Integer role;
+
+    public UserDomain() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Integer getRole() {
+        return role;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
+    }
 
     @Override
     public String toString() {

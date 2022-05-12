@@ -1,9 +1,8 @@
-package fr.utbm.cantine.service.impl;
+package fr.utbm.cantine.service.test.impl;
 
 import fr.utbm.cantine.config.websocket.WebSocketServer;
-import fr.utbm.cantine.service.ITestWebSocket;
+import fr.utbm.cantine.service.test.ITestWebSocket;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;

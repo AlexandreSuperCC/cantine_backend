@@ -14,4 +14,10 @@ public interface ErrorConstant {
     class Security {
         public static final String JWT_UNAUTHORIZED = "wrong token";
     }
+    class Login {
+        public static final String LOGIN_USERNAME_EMPTY = "username is empty";
+        public static final String USERNAME_PASSWORD_ERROR = "username doesn't exist or password is incorrect";
+        public static final String MAKE_TOKEN_ERROR = "making token fails";
+
+    }
 }

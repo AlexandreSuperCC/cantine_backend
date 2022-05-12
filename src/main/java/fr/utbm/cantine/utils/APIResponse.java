@@ -15,7 +15,7 @@ public class APIResponse <T> {
     private T data;
     private String msg;
     private String token;
-    private String userId;
+    private Integer userId;
 
     private static final String CODE_SUCCESS = "suc";
     private static final String CODE_FAIL = "fail";
@@ -59,14 +59,20 @@ public class APIResponse <T> {
         return new APIResponse(CODE_SUCCESS,msg);
     }
 
-    /**
-     * used in home to get article
-     * @param data the data to return
-     * @param msg the message to return
-     * @return the response of the API
-     */
     public static APIResponse success(Object data,String msg){
         return new APIResponse(CODE_SUCCESS,data,msg);
+    }
+
+    /**
+    * @DESC used for login
+    * @data 12/05/2022 20:42
+    * @author yuan.cao@utbm.fr
+    **/
+    public static APIResponse success(String token,Integer userId, Object data){
+        APIResponse apiResponse = new APIResponse(CODE_SUCCESS,data);
+        apiResponse.token = token;
+        apiResponse.userId = userId;
+        return apiResponse;
     }
 
 
