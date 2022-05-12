@@ -5,6 +5,10 @@ import org.apache.commons.lang3.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @Type CommonUtils.java
@@ -46,6 +50,29 @@ public class CommonUtils {
             ip = request.getRemoteAddr();
         }
         return ip;
+    }
+
+    /**
+     * String to token
+     * @param
+     * @return String
+     */
+    public static String getTokenStr(String str) {
+        String pattern = "token:(.*?)$";
+        Pattern r1 = Pattern.compile(pattern);
+        Matcher m1 = r1.matcher(str);
+        List<String> resList = new ArrayList<>();
+        while(m1.find()){
+            resList.add(m1.group(1).trim());
+        }
+        if(resList.size()!=1){
+            return null;
+        }else{
+            String res = resList.toString();
+            res = res.replace("[","")
+                    .replace("]","");
+            return res;
+        }
     }
 
     /**
