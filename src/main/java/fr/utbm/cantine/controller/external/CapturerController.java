@@ -50,10 +50,11 @@ public class CapturerController extends BaseController {
 
     @GetMapping(value = "fromPeopleCapturer")
     public APIResponse receiveFromPeopleCapturer(@RequestParam(value = "cid",required = true) Integer cid,
-                                           @RequestParam(value = "number",required = true) String number,
+                                           @RequestParam(value = "totalIn",required = true) String totalIn,
+                                           @RequestParam(value = "totalOut",required = true) String totalOut,
                                            @RequestParam(value = "token",required = true) String token
     ){
-        PeopleCapturerDomain peopleCapturerDomain = new PeopleCapturerDomain.Builder(cid, number,token)
+        PeopleCapturerDomain peopleCapturerDomain = new PeopleCapturerDomain.Builder(cid, totalIn,totalOut,token)
                 .name(CommonConstant.Capturer.DEFAULT_PLATCAPTURER_NAME)
                 .build();
 
