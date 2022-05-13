@@ -3,8 +3,10 @@ package fr.utbm.cantine.controller.external;
 import fr.utbm.cantine.constant.CommonConstant;
 import fr.utbm.cantine.controller.BaseController;
 import fr.utbm.cantine.exception.BusinessException;
+import fr.utbm.cantine.model.PeopleCapturerDomain;
 import fr.utbm.cantine.model.PlatCapturerDomain;
 import fr.utbm.cantine.service.external.Executor;
+import fr.utbm.cantine.service.external.PeopleExecutor;
 import fr.utbm.cantine.service.external.PlatExecutor;
 import fr.utbm.cantine.utils.APIResponse;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +39,26 @@ public class CapturerController extends BaseController {
 
         Executor<PlatCapturerDomain> executor = PlatExecutor.getInstance();
         executor.addToExecuteList(platCapturerDomain);
+        String res = null;
+        try{
+            res = executor.exec();
+        }catch (BusinessException be){
+            return APIResponse.fail(be.getErrorCode());
+        }
+        return APIResponse.success(res);
+    }
+
+    @GetMapping(value = "fromPeopleCapturer")
+    public APIResponse receiveFromPeopleCapturer(@RequestParam(value = "cid",required = true) Integer cid,
+                                           @RequestParam(value = "number",required = true) String number,
+                                           @RequestParam(value = "token",required = true) String token
+    ){
+        PeopleCapturerDomain peopleCapturerDomain = new PeopleCapturerDomain.Builder(cid, number,token)
+                .name(CommonConstant.Capturer.DEFAULT_PLATCAPTURER_NAME)
+                .build();
+
+        Executor<PeopleCapturerDomain> executor = PeopleExecutor.getInstance();
+        executor.addToExecuteList(peopleCapturerDomain);
         String res = null;
         try{
             res = executor.exec();
