@@ -12,7 +12,7 @@ public class CantineApplication {
     public static void main(String[] args) {
         SpringApplication.run(CantineApplication.class, args);
 
-        System.out.println("Today token for hardware is : "+ JwtUtil.signForHardware(CommonConstant.Capturer.DEFAULT_PLATCAPTURER_NAME,"2022"));
+        System.out.println("Today token for hardware is : "+ JwtUtil.signForHardware());
 
     }
 

@@ -39,7 +39,7 @@ public class AuthController extends BaseController {
             UserDomain userInfo = userService.login(username,password);
             //no exception so succeed=>
 
-            token = JwtUtil.sign(userInfo.getName(),userInfo.getId().toString());
+            token = JwtUtil.sign();
             if(token!=null){
                 return APIResponse.success(token,userInfo.getId(),new LoginReturnObj(userInfo.getRole(),username));
             }else{

@@ -61,7 +61,7 @@ public class JwtUtil {
      * @param userId the id of the user
      * @return the token created for hardware
      */
-    public static String signForHardware(String hardwareName,String userId){
+    public static String signForHardware(){
         try {
 
             assert limitTimeHardware!=null&&privateKey!=null;
@@ -75,8 +75,6 @@ public class JwtUtil {
             header.put("alg","HS256");
             return JWT.create()
                     .withHeader(header)
-                    .withClaim("hardwareName",hardwareName)
-                    .withClaim("userId",userId)
                     .withExpiresAt(date)
                     .sign(algorithm);
         } catch (UnsupportedEncodingException e) {
@@ -91,7 +89,7 @@ public class JwtUtil {
     * @data 02/05/2022 16:49
     * @author yuan.cao@utbm.fr
     **/
-    public static String sign(String username, String userId){
+    public static String sign(){
         try {
 
             assert limitTimeSession!=null&&privateKey!=null;
@@ -105,8 +103,8 @@ public class JwtUtil {
             header.put("alg","HS256");
             return JWT.create()
                     .withHeader(header)
-                    .withClaim("loginName",username)
-                    .withClaim("userId",userId)
+//                    .withClaim("loginName",username)
+//                    .withClaim("userId",userId)
                     .withExpiresAt(date)
                     .sign(algorithm);
         } catch (UnsupportedEncodingException e) {
