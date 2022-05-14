@@ -53,7 +53,7 @@ public class IndexController extends BaseController {
         return iPlatService.queryaPlat(id);
     }
 
-    @GetMapping("updateComment")
+    @PostMapping("updateComment")
     public String updateComment(
             @RequestParam(value = "id",required = true) Integer id,
             @RequestParam(value = "rate",required = true) String rate,
