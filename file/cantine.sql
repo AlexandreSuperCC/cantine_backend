@@ -49,6 +49,9 @@ INSERT INTO `mo_cantine`.`user` (`id`, `name`, `password`, `role`) VALUES (1, 'a
 INSERT INTO `mo_cantine`.`user` (`id`, `name`, `password`, `role`) VALUES (2, 'cook', 'cook',1);
 INSERT INTO `mo_cantine`.`user` (`id`, `name`, `password`, `role`) VALUES (3, 'Yuan Cao', '351ad58134d2110bb7ca0a4e3c8c9dfe',1);
 
+INSERT INTO `mo_cantine`.`news` (`id`, `content`, `time`, `cid`) VALUES (1, 'Our canteen is opening soon!', '2022/5/14',1);
+INSERT INTO `mo_cantine`.`news` (`id`, `content`, `time`, `cid`) VALUES (2, 'Our canteen is free for everyone today!', '2022/5/14',2);
+
 insert into menu (id,name,type,rate,content,amount,day,imgurl,cid,ts,dr)
 values
     (1,"Poisson pané",1,'',"Poisson",55,0,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6yW9NhPNz8n--NfwFffveNDvL16Jt39rWYg&usqp=CAU',1,NULL,0),
