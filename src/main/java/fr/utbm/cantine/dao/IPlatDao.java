@@ -46,4 +46,77 @@ public interface IPlatDao extends JpaRepository<PlatDomain,Integer> {
     @Query(nativeQuery=true, value ="update menu m set m.amount = :amount where m.id=:id and m.dr != 1")
     int updateAmount(@Param("id") Integer id,@Param("amount") Integer amount);
 
+    /*************************** Admin Page Part ***************************/
+    /**
+     * @DESC use for admin page, update plat info
+     * @return
+     * @date 2022-05-15 22:23:28
+     * @author yuan.cao@utbm.fr
+     **/
+    @Modifying
+    @Transactional
+    @Query(nativeQuery=true, value ="update menu m " +
+            "set m.name = :name, " +
+            "m.content = :content, " +
+            "m.imgurl = :imgurl, " +
+            "m.type = :type, " +
+            "m.day = :day " +
+            "where m.id=:id")
+    int updatePlat(@Param("id") Integer id,
+                   @Param("name") String name,
+                   @Param("content") String content,
+                   @Param("imgurl") String imgurl,
+                   @Param("type") Integer type,
+                   @Param("day") Integer day
+    );
+    /**
+     * @DESC use for admin page, delete plat
+     * @return
+     * @date 2022-05-15 22:23:28
+     * @author yuan.cao@utbm.fr
+     **/
+    @Modifying
+    @Transactional
+    @Query(nativeQuery=true, value ="update menu m set m.dr = 1 where m.id=:id")
+    int deletePlat(@Param("id") Integer id);
+
+    /**
+     * @DESC use for admin page, restore deleted plat
+     * @return
+     * @date 2022-05-15 22:23:28
+     * @author yuan.cao@utbm.fr
+     **/
+    @Modifying
+    @Transactional
+    @Query(nativeQuery=true, value ="update menu m set m.dr = 0 where m.id=:id")
+    int restorePlat(@Param("id") Integer id);
+
+    /**
+     * @DESC use for admin page, get all deleted plat
+     * @return
+     * @date 2022-05-15 22:35:03
+     * @author yuan.cao@utbm.fr
+     **/
+    @Query(nativeQuery=true, value ="select m.id,m.name,m.type,CAST(m.rate AS DECIMAL(10,2)) rate_cast,m.ctimes,m.content,m.amount,m.day,m.imgurl,m.cid,m.ts from menu m where m.dr = 1 ")
+    List<PlatDomain> getDeletedPlat();
+
+    /**
+     * @DESC use for admin page, delete plat forever
+     * @return
+     * @date 2022-05-15 22:35:03
+     * @author yuan.cao@utbm.fr
+     **/
+    @Modifying
+    @Transactional
+    @Query(nativeQuery=true, value ="delete from menu m where m.id=:id")
+    int realDeletePlat(@Param("id") Integer id);
+
+    /**
+     * @DESC get all deleted plats (dr=1)
+     * @return
+     * @date 2022-05-16 00:38:40
+     * @author yuan.cao@utbm.fr
+     **/
+    @Query(nativeQuery=true, value ="select m.id,m.name,m.type,CAST(m.rate AS DECIMAL(10,2)) rate_cast,m.ctimes,m.content,m.amount,m.day,m.imgurl,m.cid,m.ts from menu m where m.dr=1 and m.cid = :cid order by m.day,m.type,rate_cast desc ")
+    List<PlatDomain> getAllDeletedPlats(@Param(value = "cid") Integer cid);
 }
