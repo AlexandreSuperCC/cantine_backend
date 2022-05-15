@@ -6,10 +6,14 @@ import fr.utbm.cantine.model.PlatDomain;
 import fr.utbm.cantine.service.index.INewsService;
 import fr.utbm.cantine.service.index.IPlatService;
 import fr.utbm.cantine.utils.APIResponse;
+import org.hibernate.Session;
+import org.hibernate.jpa.HibernateEntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -19,7 +23,7 @@ import java.util.List;
  * @date 26/04/2022 12:26
  * @version 1.0
  */
-@Controller
+@RestController
 @RequestMapping(value = "/")
 public class IndexController extends BaseController {
 
@@ -29,7 +33,9 @@ public class IndexController extends BaseController {
     @Autowired
     INewsService iNewsService;
 
-    @ResponseBody
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @GetMapping("queryAllPlats")
     public APIResponse<List<PlatDomain>> getAllPlats(
             @RequestParam(value = "cid",required = true)
@@ -37,7 +43,6 @@ public class IndexController extends BaseController {
         return iPlatService.queryAllPlats(cid);
     }
 
-    @ResponseBody
     @GetMapping("queryAllNews")
     public APIResponse<List<NewsDomain>> getAllNews (
             @RequestParam(value = "cid",required = true)
@@ -45,7 +50,6 @@ public class IndexController extends BaseController {
         return iNewsService.queryNewsBycid(cid);
     }
 
-    @ResponseBody
     @GetMapping("queryaPlat")
     public PlatDomain getaPlat(
             @RequestParam(value = "id",required = true)
@@ -54,7 +58,7 @@ public class IndexController extends BaseController {
     }
 
     @PostMapping("updateComment")
-    public String updateComment(
+    public void updateComment(
             @RequestParam(value = "id",required = true) Integer id,
             @RequestParam(value = "rate",required = true) String rate
     ){
@@ -64,20 +68,17 @@ public class IndexController extends BaseController {
         Integer oldCtimes=cur.getCtimes();
         Integer ctimes=oldCtimes+1;
         Double newRate=(oldRate*oldCtimes+Double.parseDouble(rate))/ctimes;
+        newRate=(double) Math.round(newRate*10000)/10000;
         rate=String.valueOf(newRate);
 
-        return "redirect:/updateComment1?id="+id+"&rate="+rate+"&ctimes="+ctimes;
-    }
-
-    @GetMapping("updateComment1")
-    public String updateComment1(
-            @RequestParam(value = "id",required = true) Integer id,
-            @RequestParam(value = "rate",required = true) String rate,
-            @RequestParam(value = "ctimes",required = true) Integer ctimes
-    ){
+        HibernateEntityManager hEntityManager = (HibernateEntityManager)entityManager;
+        Session session = hEntityManager.getSession();
+        session.clear();
 
         iPlatService.updateComment(id,rate,ctimes);
-        return "redirect:/queryaPlat?id="+id;
+
     }
+
+
 
 }
