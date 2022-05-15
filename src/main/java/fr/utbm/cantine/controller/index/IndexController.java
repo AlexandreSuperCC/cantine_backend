@@ -47,7 +47,7 @@ public class IndexController extends BaseController {
 
     @ResponseBody
     @GetMapping("queryaPlat")
-    public List<PlatDomain> getaPlat(
+    public PlatDomain getaPlat(
             @RequestParam(value = "id",required = true)
                     Integer id) {
         return iPlatService.queryaPlat(id);
@@ -56,9 +56,26 @@ public class IndexController extends BaseController {
     @PostMapping("updateComment")
     public String updateComment(
             @RequestParam(value = "id",required = true) Integer id,
+            @RequestParam(value = "rate",required = true) String rate
+    ){
+
+        PlatDomain cur=iPlatService.queryaPlat(id);
+        Double oldRate=Double.parseDouble(cur.getRate());
+        Integer oldCtimes=cur.getCtimes();
+        Integer ctimes=oldCtimes+1;
+        Double newRate=(oldRate*oldCtimes+Double.parseDouble(rate))/ctimes;
+        rate=String.valueOf(newRate);
+
+        return "redirect:/updateComment1?id="+id+"&rate="+rate+"&ctimes="+ctimes;
+    }
+
+    @GetMapping("updateComment1")
+    public String updateComment1(
+            @RequestParam(value = "id",required = true) Integer id,
             @RequestParam(value = "rate",required = true) String rate,
             @RequestParam(value = "ctimes",required = true) Integer ctimes
     ){
+
         iPlatService.updateComment(id,rate,ctimes);
         return "redirect:/queryaPlat?id="+id;
     }
