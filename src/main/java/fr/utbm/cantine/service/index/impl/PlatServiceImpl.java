@@ -20,13 +20,11 @@ public class PlatServiceImpl implements IPlatService {
     }
 
     @Override
-    public List<PlatDomain> queryaPlat(Integer id){
+    public PlatDomain queryaPlat(Integer id){
         return iPlatDao.getaPlat(id);
     }
 
     @Override
-    public void updateComment(Integer id,String rate,Integer ctimes){
-        iPlatDao.updateComment(id,rate,ctimes);
-    }
+    public void updateComment(Integer id,String rate,Integer ctimes){ iPlatDao.updateComment(id,rate,ctimes); }
 
 }
