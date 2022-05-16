@@ -119,4 +119,24 @@ public interface IPlatDao extends JpaRepository<PlatDomain,Integer> {
      **/
     @Query(nativeQuery=true, value ="select m.id,m.name,m.type,CAST(m.rate AS DECIMAL(10,2)) rate_cast,m.ctimes,m.content,m.amount,m.day,m.imgurl,m.cid,m.ts from menu m where m.dr=1 and m.cid = :cid order by m.day,m.type,rate_cast desc ")
     List<PlatDomain> getAllDeletedPlats(@Param(value = "cid") Integer cid);
+
+    /**
+    * @DESC add a new plat
+    * @param
+    * @return
+    * @data 16/05/2022 11:39
+    * @author yuan.cao@utbm.fr
+    **/
+    @Modifying
+    @Transactional
+    @Query(nativeQuery=true, value ="insert into menu (id,name,type,content,day,imgurl,cid,ts,dr) " +
+            "values (:id, :name, :type, :content, :day, :imgurl, :cid, now(), 0) ")
+    int addPlat(@Param("id") Integer id,
+                @Param("name") String name,
+                @Param("type") Integer type,
+                @Param("content") String content,
+                @Param("day") Integer day,
+                @Param("imgurl") String imgurl,
+                @Param("cid") Integer cid
+                );
 }

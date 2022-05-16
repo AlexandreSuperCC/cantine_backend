@@ -7,6 +7,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 class CantineApplicationTests {
 
     @Test
+    void getToken() {
+        System.out.println("hello");
+    }
+
+    @Test
     void contextLoads() {
     }
 

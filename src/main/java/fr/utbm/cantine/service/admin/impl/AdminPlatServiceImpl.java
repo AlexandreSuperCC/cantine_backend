@@ -4,6 +4,7 @@ import fr.utbm.cantine.dao.IPlatDao;
 import fr.utbm.cantine.model.PlatDomain;
 import fr.utbm.cantine.service.admin.IAdminPlatService;
 import fr.utbm.cantine.utils.APIResponse;
+import fr.utbm.cantine.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,5 +48,18 @@ public class AdminPlatServiceImpl implements IAdminPlatService {
     public List<PlatDomain> queryAllDeletedPlats(Integer cid) {
         List<PlatDomain> listPlats = iPlatDao.getAllDeletedPlats(cid);
         return listPlats;
+    }
+
+    @Override
+    public int addPlat(PlatDomain platDomain) {
+        Integer id = CommonUtils.getRandomID();
+        String name = platDomain.getName();
+        String content = platDomain.getContent();
+        String imgurl = platDomain.getImgurl();
+        Integer type = platDomain.getType();
+        Integer day = platDomain.getDay();
+        Integer cid = platDomain.getCid();
+        assert id!=0;
+        return iPlatDao.addPlat(id,name,type,content,day,imgurl,cid);
     }
 }

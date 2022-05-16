@@ -8,7 +8,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/mo_cantine?useSSL=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
     username: root
-    password: ''
+    password: '0423'
   jpa:
     database: mysql
     # Show or not log for each sql query
@@ -22,3 +22,15 @@ spring:
       hibernate:
         # stripped before adding them to the entity manager
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  #Upload file size
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+#secret!!! not to show it to public
+qiniu:
+  accesskey: "nldp85WFnrjxP-UWmvcgC1efYqQ_xT09XzA53jXl"
+  serectkey: "wNjtrzZoCsK2LQ9CVrT4RxjXHZtzD84jeaiPy98j"
+  bucket: "north-us-ycao"
+  cdn:
+    url: "www.cklovery.site/"

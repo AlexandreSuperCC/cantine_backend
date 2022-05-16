@@ -21,4 +21,9 @@ public interface CommonConstant {
          */
         public static final String DEFAULT_PLATCAPTURER_NAME = "STM32F401";
     }
+    class UploadFile {
+        public static final String PREFIX_DIRECTORY_UPLOAD = "CANTEEN2022/";
+        public static final String PREFIX_HTTP_UPLOAD = "http://";
+
+    }
 }

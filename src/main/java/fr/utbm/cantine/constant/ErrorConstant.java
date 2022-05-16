@@ -23,4 +23,8 @@ public interface ErrorConstant {
         public final static Integer NO_TOKEN = 410;
         public final static Integer JWT_UNAUTHORIZED = 412;
     }
+    class Atth {
+        public final static String UPLOAD_FILE_FAIL = "uploading attachment fails";
+
+    }
 }

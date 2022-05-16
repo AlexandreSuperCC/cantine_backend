@@ -33,6 +33,7 @@ public class BaseInterceptor implements HandlerInterceptor {
         // If it is not mapped to the method directly through, you can access the resource.
         // if the action is uploading file, it will not come through the front-end interceptors!!!, so let it pass
         if(!url.startsWith("/admin")
+                ||url.contains("/uploadFile")
                 ||(!(handler instanceof HandlerMethod)
         )){
             return true;
