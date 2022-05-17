@@ -35,8 +35,9 @@ public class AuthController extends BaseController {
         try{
             String username= loginUser.getName();
             String password=loginUser.getPassword();
+            Integer cid = loginUser.getCid();
             LOGGER.info("user: ["+username+"] pwd: ["+password+"] arrives");
-            UserDomain userInfo = userService.login(username,password);
+            UserDomain userInfo = userService.login(username,password,cid);
             //no exception so succeed=>
 
             token = JwtUtil.sign();
@@ -52,7 +53,9 @@ public class AuthController extends BaseController {
                 LOGGER.error(ip+" : "+errMes);
                 return APIResponse.fail(errMes);
             }else{
-                msg = e.getMessage().substring(0,500);
+                msg = e.getMessage().length()>500
+                        ?e.getMessage().substring(0,500)
+                        :e.getMessage();
                 LOGGER.error(msg,e);
             }
             return APIResponse.fail(msg);

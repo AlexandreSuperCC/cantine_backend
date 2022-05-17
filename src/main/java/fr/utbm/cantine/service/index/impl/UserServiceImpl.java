@@ -22,14 +22,14 @@ public class UserServiceImpl implements IUserService {
     private IUserDao userDao;
 
     @Override
-    public UserDomain login(String username, String password) {
+    public UserDomain login(String username, String password, Integer cid) {
         if(StringUtils.isBlank(username)){
             throw BusinessException.withErrorCode(ErrorConstant.Login.LOGIN_USERNAME_EMPTY);
         }
         String pwd = CommonUtils.MD5encode(username+password);
         LOGGER.info("Encrypted pwd : "+pwd);
 
-        UserDomain user = userDao.getUserInfoByCond(username,pwd);
+        UserDomain user = userDao.getUserInfoByCond(username,pwd,cid);
         if(user==null){
             throw BusinessException.withErrorCode(ErrorConstant.Login.USERNAME_PASSWORD_ERROR);
         }

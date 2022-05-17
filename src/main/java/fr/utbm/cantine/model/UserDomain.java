@@ -19,7 +19,18 @@ public class UserDomain {
     @Column(name = "role")
     private Integer role;
 
+    @Column(name = "cid")
+    private Integer cid;
+
     public UserDomain() {
+    }
+
+    public Integer getCid() {
+        return cid;
+    }
+
+    public void setCid(Integer cid) {
+        this.cid = cid;
     }
 
     public Integer getId() {
