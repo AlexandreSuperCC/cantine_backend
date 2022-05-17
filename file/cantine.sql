@@ -31,7 +31,7 @@ create table `menu` (
 
 create table `news`(
     `id` int(11) NOT NULL,
-    `content` varchar(200),
+    `content` text,
     `time` varchar(20),
     `cid` int(11),
     primary key(`id`)
@@ -50,7 +50,11 @@ INSERT INTO `mo_cantine`.`user` (`id`, `name`, `password`, `role`) VALUES (2, 'c
 INSERT INTO `mo_cantine`.`user` (`id`, `name`, `password`, `role`) VALUES (3, 'Yuan Cao', '351ad58134d2110bb7ca0a4e3c8c9dfe',0);
 INSERT INTO `mo_cantine`.`user` (`id`, `name`, `password`, `role`) VALUES (4, 'Keran Zhang', 'b4b0f9b320c205134240baa4e2559e83',1);
 
-INSERT INTO `mo_cantine`.`news` (`id`, `content`, `time`, `cid`) VALUES (1, 'Our canteen is opening soon!', '2022/5/14',1);
+INSERT INTO `mo_cantine`.`news` (`id`, `content`, `time`, `cid`) VALUES (3, 'Our canteen is opening soon gdgdfgdfg!', '2022/5/14',1);
+INSERT INTO `mo_cantine`.`news` (`id`, `content`, `time`, `cid`) VALUES (4, 'Our canteen is opening soon gdfgdfgs!', '2022/5/14',1);
+INSERT INTO `mo_cantine`.`news` (`id`, `content`, `time`, `cid`) VALUES (5, 'Our canteen is opening soon gdfgdfgs!', '2022/5/14',1);
+INSERT INTO `mo_cantine`.`news` (`id`, `content`, `time`, `cid`) VALUES (6, 'Our canteen is opening soon gdffdfgdfgs!', '2022/5/14',1);
+INSERT INTO `mo_cantine`.`news` (`id`, `content`, `time`, `cid`) VALUES (1, 'Our canteen is opening soon sfdfdg!', '2022/5/14',1);
 INSERT INTO `mo_cantine`.`news` (`id`, `content`, `time`, `cid`) VALUES (2, 'Our canteen is free for everyone today!', '2022/5/14',2);
 
 insert into menu (id,name,type,rate,content,amount,day,imgurl,cid,ts,dr)

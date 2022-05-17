@@ -1,5 +1,9 @@
 package fr.utbm.cantine.utils;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import fr.utbm.cantine.constant.ErrorConstant;
+import fr.utbm.cantine.exception.BusinessException;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -144,10 +148,9 @@ public class CommonUtils {
 
         String str = simpleDateFormat.format(date);
 
-        Random random = new Random();
-
-        int rannum = (int) (random.nextDouble() * (99 - 10 + 1)) + 10;// 获取2位随机数
+        int rannum = (int)(1+Math.random() * 99);// 获取随机数1-99
 
         return Integer.valueOf(str + rannum);// 当前时间
     }
+
 }
