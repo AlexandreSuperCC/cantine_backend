@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Service
-@EnableScheduling
+
 public class TestWebSocketImpl implements ITestWebSocket {
 
 //    @Scheduled(fixedRate=2000) //1000毫秒执行一次
