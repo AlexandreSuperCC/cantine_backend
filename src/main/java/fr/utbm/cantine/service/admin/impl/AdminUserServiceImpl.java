@@ -45,7 +45,7 @@ public class AdminUserServiceImpl implements IAdminUserService {
         UserDomain userDomain = iUserDao.verifyBeforeUpdatePwd(id,name,pwd);
 
         if(userDomain==null){
-            throw BusinessException.withErrorCode(ErrorConstant.Login.USERNAME_PASSWORD_ERROR);
+            throw BusinessException.withErrorCode(ErrorConstant.Login.OLD_PASSWORD_ERROR);
         }
     }
 

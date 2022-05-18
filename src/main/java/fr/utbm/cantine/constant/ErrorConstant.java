@@ -17,6 +17,7 @@ public interface ErrorConstant {
     class Login {
         public static final String LOGIN_USERNAME_EMPTY = "username is empty";
         public static final String USERNAME_PASSWORD_ERROR = "username doesn't exist or password is incorrect";
+        public static final String OLD_PASSWORD_ERROR = "old password is incorrect";
         public static final String MAKE_TOKEN_ERROR = "making token fails";
     }
     class HttpStatus {
