@@ -23,6 +23,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -44,8 +45,17 @@ public class Scheduler {
     public Scheduler(IPlatDao iPlatDao) {
         this.iPlatDao=iPlatDao;
         List<PlatDomain> list=iPlatDao.getAllActivePlats(1);
+        int nowday= Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        if(nowday==1){
+            nowday=6;
+        }
+        else {
+            nowday-=2;
+        }
         for(PlatDomain plat:list){
-            plats.add(new Integer[]{plat.getId(),100});
+            if(plat.getDay()==nowday) {
+                plats.add(new Integer[]{plat.getId(), 100});
+            }
         }
     }
 
