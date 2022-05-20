@@ -8,6 +8,7 @@ import fr.utbm.cantine.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -61,5 +62,18 @@ public class AdminPlatServiceImpl implements IAdminPlatService {
         Integer cid = platDomain.getCid();
         assert id!=0;
         return iPlatDao.addPlat(id,name,type,content,day,imgurl,cid);
+    }
+
+    @Override
+    public List<PlatDomain> getLeastNumPlatsNow(Integer cid) {
+        assert cid!=null;
+        Integer curDay = CommonUtils.getCurWeek();
+        List<PlatDomain>  resList=null;
+        if(curDay!=-1){
+            resList= iPlatDao.getLeastNumPlatsNow(cid,curDay);
+        }
+        return resList==null
+                ?new ArrayList<>()
+                :resList;
     }
 }

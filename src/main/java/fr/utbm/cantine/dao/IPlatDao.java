@@ -24,7 +24,7 @@ public interface IPlatDao extends JpaRepository<PlatDomain,Integer> {
     * @data 26/04/2022 22:37
     * @author yuan.cao@utbm.fr
     **/
-    @Query(nativeQuery=true, value ="select m.id,m.name,m.type,CAST(m.rate AS DECIMAL(10,2)) rate_cast,m.ctimes,m.content,m.amount,m.day,m.imgurl,m.cid,m.ts from menu m where m.dr=0 and m.cid = :cid order by m.day,m.type,rate_cast desc ")
+    @Query(nativeQuery=true, value ="select m.id,m.name,m.type,CAST(m.rate AS DECIMAL(10,2)) rate_cast,m.ctimes,m.content,m.amount,m.day,m.imgurl,m.cid,m.ts from menu m where m.dr=0 and m.cid = :cid order by m.day,m.type,m.ts desc ")
     List<PlatDomain> getAllActivePlats(@Param(value = "cid") Integer cid);
 
     @Query(nativeQuery=true, value ="select m.id,m.name,m.type,CAST(m.rate AS DECIMAL(10,2)) rate_cast,m.ctimes,m.content,m.amount,m.day,m.imgurl,m.cid,m.ts from menu m where m.id = :id ")
@@ -60,6 +60,7 @@ public interface IPlatDao extends JpaRepository<PlatDomain,Integer> {
             "m.content = :content, " +
             "m.imgurl = :imgurl, " +
             "m.type = :type, " +
+            "m.ts = now(), " +
             "m.day = :day " +
             "where m.id=:id")
     int updatePlat(@Param("id") Integer id,
@@ -77,7 +78,7 @@ public interface IPlatDao extends JpaRepository<PlatDomain,Integer> {
      **/
     @Modifying
     @Transactional
-    @Query(nativeQuery=true, value ="update menu m set m.dr = 1 where m.id=:id")
+    @Query(nativeQuery=true, value ="update menu m set m.dr = 1,m.ts = now() where m.id=:id")
     int deletePlat(@Param("id") Integer id);
 
     /**
@@ -88,17 +89,8 @@ public interface IPlatDao extends JpaRepository<PlatDomain,Integer> {
      **/
     @Modifying
     @Transactional
-    @Query(nativeQuery=true, value ="update menu m set m.dr = 0 where m.id=:id")
+    @Query(nativeQuery=true, value ="update menu m set m.dr = 0,m.ts = now() where m.id=:id")
     int restorePlat(@Param("id") Integer id);
-
-    /**
-     * @DESC use for admin page, get all deleted plat
-     * @return
-     * @date 2022-05-15 22:35:03
-     * @author yuan.cao@utbm.fr
-     **/
-    @Query(nativeQuery=true, value ="select m.id,m.name,m.type,CAST(m.rate AS DECIMAL(10,2)) rate_cast,m.ctimes,m.content,m.amount,m.day,m.imgurl,m.cid,m.ts from menu m where m.dr = 1 ")
-    List<PlatDomain> getDeletedPlat();
 
     /**
      * @DESC use for admin page, delete plat forever
@@ -139,4 +131,15 @@ public interface IPlatDao extends JpaRepository<PlatDomain,Integer> {
                 @Param("imgurl") String imgurl,
                 @Param("cid") Integer cid
                 );
+
+    /**
+    * @DESC reply the least number of plats today now, used in admin home page
+    * @param
+    * @return
+    * @data 20/05/2022 12:02
+    * @author yuan.cao@utbm.fr
+    **/
+    @Query(nativeQuery=true, value ="select m.id,m.name,m.type,CAST(m.rate AS DECIMAL(10,2)) rate_cast,m.ctimes,m.content,m.amount,m.day,m.imgurl,m.cid,m.ts from menu m where m.dr=0 and m.cid = :cid and m.day= :day order by m.amount LIMIT 5 ")
+    List<PlatDomain> getLeastNumPlatsNow(@Param(value = "cid") Integer cid
+                                        ,@Param(value= "day") Integer day);
 }

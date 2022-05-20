@@ -37,12 +37,17 @@ public class AuthController extends BaseController {
             String password=loginUser.getPassword();
             Integer cid = loginUser.getCid();
             LOGGER.info("user: ["+username+"] pwd: ["+password+"] arrives");
-            UserDomain userInfo = userService.login(username,password,cid);
+            UserDomain userInfo = userService.login(username,password,cid,ip);
             //no exception so succeed=>
 
             token = JwtUtil.sign();
+
             if(token!=null){
-                return APIResponse.success(token,userInfo.getId(),new LoginReturnObj(userInfo.getRole(),username));
+                LoginReturnObj obj = new LoginReturnObj(userInfo.getRole()
+                        ,username
+                        ,userInfo.getLastIp()
+                        ,userInfo.getLastTime());
+                return APIResponse.success(token,userInfo.getId(),obj);
             }else{
                 return APIResponse.fail(ErrorConstant.Login.MAKE_TOKEN_ERROR);
             }
@@ -63,13 +68,18 @@ public class AuthController extends BaseController {
     }
 
     @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})//cause jackson serialization error
-    class LoginReturnObj {
+    private class LoginReturnObj {
         final Integer role;
         final String name;
+        final String lastIp;
+        final String lastTime;
 
-        LoginReturnObj(Integer role,String name){
+
+        LoginReturnObj(Integer role,String name,String lastIp,String lastTime){
             this.role = role;
             this.name = name;
+            this.lastIp = lastIp;
+            this.lastTime = lastTime;
         }
 
         public Integer getRole() {
@@ -78,6 +88,14 @@ public class AuthController extends BaseController {
 
         public String getName() {
             return name;
+        }
+
+        public String getLastIp() {
+            return lastIp;
+        }
+
+        public String getLastTime() {
+            return lastTime;
         }
     }
 }

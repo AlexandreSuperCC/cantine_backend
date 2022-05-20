@@ -136,4 +136,21 @@ public class AdminPlatController {
         }
         return APIResponse.success();
     }
+
+    @ResponseBody
+    @GetMapping("leastNumPlatsNow")
+    public APIResponse<List<PlatDomain>> getLeastNumPlatsNow(
+            @RequestParam(value = "cid",required = true)
+                    Integer cid){
+        {
+            List<PlatDomain> listPlats = null;
+            try {
+                assert cid != null;
+                listPlats = iAdminPlatService.getLeastNumPlatsNow(cid);
+            }catch (Exception e){
+                return APIResponse.fail(e.getMessage());
+            }
+            return APIResponse.success(listPlats);
+        }
+    }
 }

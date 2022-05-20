@@ -1,9 +1,5 @@
 package fr.utbm.cantine.utils;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import fr.utbm.cantine.constant.ErrorConstant;
-import fr.utbm.cantine.exception.BusinessException;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -152,5 +148,37 @@ public class CommonUtils {
 
         return Integer.valueOf(str + rannum);// 当前时间
     }
+
+    /**
+    * @DESC Get the day of the week: 0-6:Monday-Sunday
+    * @param
+    * @return
+    * @data 20/05/2022 12:10
+    * @author yuan.cao@utbm.fr
+    **/
+    public static Integer getCurWeek() {
+        Integer week=-1;
+        Date today = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(today);
+        int weekday = c.get(Calendar.DAY_OF_WEEK);
+        if (weekday == 1) {
+            week = 6;
+        } else if (weekday == 2) {
+            week = 0;
+        } else if (weekday == 3) {
+            week = 1;
+        } else if (weekday == 4) {
+            week = 2;
+        } else if (weekday == 5) {
+            week = 3;
+        } else if (weekday == 6) {
+            week = 4;
+        } else if (weekday == 7) {
+            week = 5;
+        }
+        return week;
+    }
+
 
 }

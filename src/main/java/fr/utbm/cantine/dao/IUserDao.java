@@ -65,6 +65,14 @@ public interface IUserDao extends JpaRepository<UserDomain,Integer> {
                    @Param("password") String password
     );
 
+    @Modifying
+    @Transactional
+    @Query(nativeQuery=true, value ="update user u " +
+            "set u.last_time = now(), u.last_ip = :last_ip " +
+            "where u.id=:id")
+    void updateLoginInfo(@Param("id") Integer id,
+                         @Param("last_ip") String lastIp
+    );
 
     @Modifying
     @Transactional

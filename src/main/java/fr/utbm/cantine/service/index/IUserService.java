@@ -15,5 +15,5 @@ public interface IUserService {
     * @data 12/05/2022 18:49
     * @author yuan.cao@utbm.fr
     **/
-    UserDomain login(String username, String password, Integer cid);
+    UserDomain login(String username, String password, Integer cid,String ip);
 }

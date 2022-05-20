@@ -19,10 +19,32 @@ public class UserDomain {
     @Column(name = "role")
     private Integer role;
 
+    @Column(name = "last_time")
+    private String lastTime;
+
+    @Column(name = "last_ip")
+    private String lastIp;
+
     @Column(name = "cid")
     private Integer cid;
 
     public UserDomain() {
+    }
+
+    public String getLastIp() {
+        return lastIp;
+    }
+
+    public void setLastIp(String lastIp) {
+        this.lastIp = lastIp;
+    }
+
+    public String getLastTime() {
+        return lastTime;
+    }
+
+    public void setLastTime(String lastTime) {
+        this.lastTime = lastTime;
     }
 
     public Integer getCid() {

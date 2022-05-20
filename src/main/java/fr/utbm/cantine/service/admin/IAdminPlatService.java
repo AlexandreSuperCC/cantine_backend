@@ -25,5 +25,6 @@ public interface IAdminPlatService {
     int realDeletePlat(Integer id);
     int restorePlat(Integer id);
     int addPlat(PlatDomain platDomain);
+    List<PlatDomain> getLeastNumPlatsNow(Integer cid);
 
 }
