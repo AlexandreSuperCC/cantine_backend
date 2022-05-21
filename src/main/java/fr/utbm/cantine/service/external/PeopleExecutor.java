@@ -80,7 +80,7 @@ public class PeopleExecutor extends Executor <PeopleCapturerDomain> {
 
         log.info("The Number of people waiting in the canteen ["+cantineID+"] is : "+curObject.getNumberOfPeople()+" , you have to wait ["+curObject.getWaitTime()+"] second , now sending data to client...");
 
-        //add by ycao 20220521put into cache, expired after a day
+        //add by ycao 20220521 put into cache, expired after a half day
         if(curObject.getTotalIn()!=null&&curObject.getTotalOut()!=null){
             if(MapCache.single().get("iniInPeoArr:"+curObject.getCid())==null
                     ||MapCache.single().get("iniOutPeoArr:"+curObject.getCid())==null){
@@ -94,8 +94,8 @@ public class PeopleExecutor extends Executor <PeopleCapturerDomain> {
                 List<Map> outPeoList = new ArrayList<>();
                 outPeoList.add(outPeo);
 
-                MapCache.single().set("iniInPeoArr:"+curObject.getCid(),inPeoList,60*60*24);
-                MapCache.single().set("iniOutPeoArr:"+curObject.getCid(),outPeoList,60*60*24);
+                MapCache.single().set("iniInPeoArr:"+curObject.getCid(),inPeoList,60*60*12);
+                MapCache.single().set("iniOutPeoArr:"+curObject.getCid(),outPeoList,60*60*12);
             }else{
                 List<Map> inPeoList = MapCache.single().get("iniInPeoArr:"+curObject.getCid());
                 Map<String,Integer> inPeo = new HashMap();
@@ -107,8 +107,8 @@ public class PeopleExecutor extends Executor <PeopleCapturerDomain> {
                 outPeo.put(CommonUtils.getCurTime(),curObject.getTotalOut());
                 outPeoList.add(outPeo);
 
-                MapCache.single().set("iniInPeoArr:"+curObject.getCid(),inPeoList,60*60*24);
-                MapCache.single().set("iniOutPeoArr:"+curObject.getCid(),outPeoList,60*60*24);
+                MapCache.single().set("iniInPeoArr:"+curObject.getCid(),inPeoList,60*60*12);
+                MapCache.single().set("iniOutPeoArr:"+curObject.getCid(),outPeoList,60*60*12);
             }
         }
 
