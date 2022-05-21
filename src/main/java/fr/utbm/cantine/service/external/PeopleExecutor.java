@@ -7,8 +7,14 @@ import fr.utbm.cantine.exception.BusinessException;
 import fr.utbm.cantine.model.PeopleCapturerDomain;
 import fr.utbm.cantine.model.PlatCapturerDomain;
 import fr.utbm.cantine.utils.APIResponse;
+import fr.utbm.cantine.utils.CommonUtils;
+import fr.utbm.cantine.utils.MapCache;
 import fr.utbm.cantine.utils.security.JwtUtil;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class PeopleExecutor extends Executor <PeopleCapturerDomain> {
@@ -73,6 +79,41 @@ public class PeopleExecutor extends Executor <PeopleCapturerDomain> {
         }
 
         log.info("The Number of people waiting in the canteen ["+cantineID+"] is : "+curObject.getNumberOfPeople()+" , you have to wait ["+curObject.getWaitTime()+"] second , now sending data to client...");
+
+        //add by ycao 20220521put into cache, expired after a day
+        if(curObject.getTotalIn()!=null&&curObject.getTotalOut()!=null){
+            if(MapCache.single().get("iniInPeoArr:"+curObject.getCid())==null
+                    ||MapCache.single().get("iniOutPeoArr:"+curObject.getCid())==null){
+                Map<String,Integer> inPeo = new HashMap();
+                inPeo.put(CommonUtils.getCurTime(),curObject.getTotalIn());
+                List<Map> inPeoList = new ArrayList<>();
+                inPeoList.add(inPeo);
+
+                Map<String,Integer> outPeo = new HashMap();
+                outPeo.put(CommonUtils.getCurTime(),curObject.getTotalOut());
+                List<Map> outPeoList = new ArrayList<>();
+                outPeoList.add(outPeo);
+
+                MapCache.single().set("iniInPeoArr:"+curObject.getCid(),inPeoList,60*60*24);
+                MapCache.single().set("iniOutPeoArr:"+curObject.getCid(),outPeoList,60*60*24);
+            }else{
+                List<Map> inPeoList = MapCache.single().get("iniInPeoArr:"+curObject.getCid());
+                Map<String,Integer> inPeo = new HashMap();
+                inPeo.put(CommonUtils.getCurTime(),curObject.getTotalIn());
+                inPeoList.add(inPeo);
+
+                List<Map> outPeoList = MapCache.single().get("iniOutPeoArr:"+curObject.getCid());
+                Map<String,Integer> outPeo = new HashMap();
+                outPeo.put(CommonUtils.getCurTime(),curObject.getTotalOut());
+                outPeoList.add(outPeo);
+
+                MapCache.single().set("iniInPeoArr:"+curObject.getCid(),inPeoList,60*60*24);
+                MapCache.single().set("iniOutPeoArr:"+curObject.getCid(),outPeoList,60*60*24);
+            }
+        }
+
+
+
         String jsonString = JSON.toJSONString(APIResponse.success(curObject,"people"));
         WebSocketServer.sendInfo(jsonString, String.valueOf(cantineID));
         /*inform client code using WebSocket*/

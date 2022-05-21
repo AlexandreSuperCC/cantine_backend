@@ -1,5 +1,6 @@
 package fr.utbm.cantine.service.admin;
 
+import fr.utbm.cantine.model.CanteenDomain;
 import fr.utbm.cantine.model.UserDomain;
 
 import java.util.List;
@@ -14,4 +15,7 @@ public interface IAdminUserService {
     void addUser(UserDomain userDomain);
 
     void updateUser(UserDomain userDomain);
+
+    CanteenDomain getCanteenInfo(Integer id);
+
 }

@@ -1,14 +1,18 @@
 package fr.utbm.cantine.controller.admin;
 
 import fr.utbm.cantine.exception.BusinessException;
+import fr.utbm.cantine.model.CanteenDomain;
 import fr.utbm.cantine.model.UserDomain;
 import fr.utbm.cantine.service.admin.IAdminUserService;
 import fr.utbm.cantine.utils.APIResponse;
+import fr.utbm.cantine.utils.MapCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/admin")
@@ -91,5 +95,37 @@ public class AdminUserController {
             return APIResponse.fail(e.getMessage());
         }
         return APIResponse.success();
+    }
+
+
+    @GetMapping("/getCanteenInfo")
+    public APIResponse<CanteenDomain> getCanteenInfo (
+            @RequestParam(value = "id",required = true)
+                    Integer id) {
+        CanteenDomain canteenDomain = null;
+        try {
+            assert id != null;
+            canteenDomain = iAdminUserService.getCanteenInfo(id);
+        }catch (Exception e){
+            return APIResponse.fail(e.getMessage());
+        }
+        return APIResponse.success(canteenDomain);
+    }
+
+    @GetMapping("/getNumHistory")
+    public APIResponse<CanteenDomain> getIniChartInfo (
+            @RequestParam(value = "cid",required = true)
+                    Integer cid) {
+        List<List> resList = new ArrayList<>();
+        try {
+            assert cid != null;
+            List<Map> inMapList = MapCache.single().get("iniInPeoArr:"+cid);
+            List<Map> outMapList = MapCache.single().get("iniOutPeoArr:"+cid);
+            resList.add(inMapList);
+            resList.add(outMapList);
+        }catch (Exception e){
+            return APIResponse.fail(e.getMessage());
+        }
+        return APIResponse.success(resList);
     }
 }

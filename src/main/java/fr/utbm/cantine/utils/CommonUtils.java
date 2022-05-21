@@ -180,5 +180,19 @@ public class CommonUtils {
         return week;
     }
 
+    /**
+    * @DESC get current time : HH:mm
+    * @param
+    * @return
+    * @data 21/05/2022 00:13
+    * @author yuan.cao@utbm.fr
+    **/
+    public static String getCurTime(){
+        SimpleDateFormat simpleDateFormat;
+        simpleDateFormat = new SimpleDateFormat("HH:mm");
+        Date date = new Date();
+        String str = simpleDateFormat.format(date);
+        return str;
+    }
 
 }

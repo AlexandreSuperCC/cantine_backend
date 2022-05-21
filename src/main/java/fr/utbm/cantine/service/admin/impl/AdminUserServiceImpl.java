@@ -1,8 +1,10 @@
 package fr.utbm.cantine.service.admin.impl;
 
 import fr.utbm.cantine.constant.ErrorConstant;
+import fr.utbm.cantine.dao.ICanteenDao;
 import fr.utbm.cantine.dao.IUserDao;
 import fr.utbm.cantine.exception.BusinessException;
+import fr.utbm.cantine.model.CanteenDomain;
 import fr.utbm.cantine.model.UserDomain;
 import fr.utbm.cantine.service.admin.IAdminUserService;
 import fr.utbm.cantine.utils.CommonUtils;
@@ -13,8 +15,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class AdminUserServiceImpl implements IAdminUserService {
+
     @Autowired
     IUserDao iUserDao;
+    @Autowired
+    ICanteenDao iCanteenDao;
+
     @Override
     public List<UserDomain> getAllUser(Integer cid) {
         assert cid!=null;
@@ -83,5 +89,11 @@ public class AdminUserServiceImpl implements IAdminUserService {
         }
         String pwd = CommonUtils.MD5encode(name+password);
         iUserDao.addUser(id,name,pwd,role,cid);
+    }
+
+    @Override
+    public CanteenDomain getCanteenInfo(Integer id) {
+        assert id!=null;
+        return iCanteenDao.getCanteenInfo(id);
     }
 }

@@ -9,8 +9,8 @@ create table `t_cantine` (
     primary key(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `mo_cantine`.`t_cantine` (`id`, `name`, `location`, `dr`) VALUES (1, 'utbm_sevenans', 'Sevenans', 0);
-INSERT INTO `mo_cantine`.`t_cantine` (`id`, `name`, `location`, `dr`) VALUES (2, 'utbm_duvillard', 'Belfort', 0);
+INSERT INTO `mo_cantine`.`t_cantine` (`id`, `name`, `location`, `dr`) VALUES (1, 'UTBM', 'Sevenans', 0);
+INSERT INTO `mo_cantine`.`t_cantine` (`id`, `name`, `location`, `dr`) VALUES (2, 'UTC', 'Compiègne', 0);
 
 
 create table `menu` (
