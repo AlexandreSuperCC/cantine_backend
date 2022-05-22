@@ -16,6 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/admin")
+@CrossOrigin
 public class AdminUserController {
 
     @Autowired

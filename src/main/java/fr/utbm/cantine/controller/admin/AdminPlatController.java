@@ -18,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/admin")
+@CrossOrigin
 public class AdminPlatController {
     @Autowired
     IAdminPlatService iAdminPlatService;

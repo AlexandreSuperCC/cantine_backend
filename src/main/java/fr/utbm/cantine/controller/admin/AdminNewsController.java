@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping(value = "/admin")
+@CrossOrigin
 public class AdminNewsController {
 
     @Autowired
