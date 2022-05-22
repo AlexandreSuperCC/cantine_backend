@@ -3,8 +3,6 @@ package fr.utbm.cantine.service.index;
 import fr.utbm.cantine.model.PlatDomain;
 import fr.utbm.cantine.utils.APIResponse;
 
-import java.util.List;
-
 /**
  * @Type IPlatService.java
  * @Desc interface for the plats in the index page

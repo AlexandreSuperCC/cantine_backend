@@ -3,7 +3,6 @@ package fr.utbm.cantine.controller.admin;
 import fr.utbm.cantine.api.QiniuCloudService;
 import fr.utbm.cantine.constant.CommonConstant;
 import fr.utbm.cantine.constant.ErrorConstant;
-import fr.utbm.cantine.exception.BusinessException;
 import fr.utbm.cantine.model.PlatDomain;
 import fr.utbm.cantine.service.admin.IAdminPlatService;
 import fr.utbm.cantine.utils.APIResponse;

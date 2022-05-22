@@ -3,7 +3,6 @@ package fr.utbm.cantine.service.admin.impl;
 import fr.utbm.cantine.dao.IPlatDao;
 import fr.utbm.cantine.model.PlatDomain;
 import fr.utbm.cantine.service.admin.IAdminPlatService;
-import fr.utbm.cantine.utils.APIResponse;
 import fr.utbm.cantine.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

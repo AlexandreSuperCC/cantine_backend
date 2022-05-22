@@ -1,6 +1,5 @@
 package fr.utbm.cantine.schedule;
 
-import fr.utbm.cantine.CantineApplication;
 import fr.utbm.cantine.constant.CommonConstant;
 import fr.utbm.cantine.dao.IPlatDao;
 import fr.utbm.cantine.exception.BusinessException;
@@ -10,15 +9,11 @@ import fr.utbm.cantine.model.PlatDomain;
 import fr.utbm.cantine.service.external.Executor;
 import fr.utbm.cantine.service.external.PeopleExecutor;
 import fr.utbm.cantine.service.external.PlatExecutor;
-import fr.utbm.cantine.service.index.IPlatService;
 import fr.utbm.cantine.utils.APIResponse;
-import fr.utbm.cantine.utils.SpringUtil;
 import fr.utbm.cantine.utils.security.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 

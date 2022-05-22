@@ -1,14 +1,14 @@
-#项目运行端口
+#server run port
 server:
   port: 8084
 
 spring:
-  #DataSource配置
+  #DataSource configuration
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/mo_cantine?useSSL=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
     username: root
-    password: ''
+    password: '0423'
   jpa:
     database: mysql
     # Show or not log for each sql query

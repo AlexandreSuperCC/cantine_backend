@@ -1,7 +1,6 @@
 package fr.utbm.cantine.service.admin;
 
 import fr.utbm.cantine.model.PlatDomain;
-import fr.utbm.cantine.utils.APIResponse;
 
 import java.util.List;
 

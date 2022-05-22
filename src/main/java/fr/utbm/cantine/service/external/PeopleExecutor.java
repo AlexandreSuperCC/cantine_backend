@@ -5,7 +5,6 @@ import fr.utbm.cantine.config.websocket.WebSocketServer;
 import fr.utbm.cantine.constant.ErrorConstant;
 import fr.utbm.cantine.exception.BusinessException;
 import fr.utbm.cantine.model.PeopleCapturerDomain;
-import fr.utbm.cantine.model.PlatCapturerDomain;
 import fr.utbm.cantine.utils.APIResponse;
 import fr.utbm.cantine.utils.CommonUtils;
 import fr.utbm.cantine.utils.MapCache;
