@@ -66,8 +66,6 @@ public class JwtUtil {
 
             assert limitTimeHardware!=null&&privateKey!=null;
 
-            //expired time
-            Date date = new Date( System.currentTimeMillis()+Long.parseLong(limitTimeHardware));
             Algorithm algorithm = Algorithm.HMAC256(privateKey);
             //set header info
             Map<String,Object> header = new HashMap<>(2);
@@ -75,7 +73,6 @@ public class JwtUtil {
             header.put("alg","HS256");
             return JWT.create()
                     .withHeader(header)
-                    .withExpiresAt(date)
                     .sign(algorithm);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

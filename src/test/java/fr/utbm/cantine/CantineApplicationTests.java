@@ -1,5 +1,6 @@
 package fr.utbm.cantine;
 
+import fr.utbm.cantine.utils.security.JwtUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -8,7 +9,7 @@ class CantineApplicationTests {
 
     @Test
     void getToken() {
-        System.out.println("hello");
+        System.out.println("Today token for hardware is : "+ JwtUtil.signForHardware());
     }
 
     @Test
