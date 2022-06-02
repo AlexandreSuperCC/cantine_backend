@@ -8,7 +8,7 @@
 * hibernate
 * websocket
 * mvc
-* springboot vue.js
+* springboot vue.js nginx
 * token 
 * md5
 * design pattern:
@@ -16,6 +16,7 @@
     * singleton
     * template
 ### details
+* deploy with nginx 
 * use websocket to realize the full-duplex communication between server-client
 * use architecture mvc -> controller/model/dao
 * use the restful style API
