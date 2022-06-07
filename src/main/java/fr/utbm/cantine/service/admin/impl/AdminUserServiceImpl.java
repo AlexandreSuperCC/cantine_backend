@@ -82,7 +82,7 @@ public class AdminUserServiceImpl implements IAdminUserService {
         Integer id = CommonUtils.getRandomID();
         String name = userDomain.getName();
         String password = userDomain.getPassword();
-        Integer role = userDomain.getCid();
+        Integer role = userDomain.getRole();
         Integer cid = userDomain.getCid();
         if(StringUtils.isBlank(name)){
             throw BusinessException.withErrorCode(ErrorConstant.Login.LOGIN_USERNAME_EMPTY);
