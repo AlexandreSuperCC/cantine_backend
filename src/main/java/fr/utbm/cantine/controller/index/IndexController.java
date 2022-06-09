@@ -64,7 +64,7 @@ public class IndexController extends BaseController {
 
         PlatDomain cur=iPlatService.queryaPlat(id);
         Double oldRate;
-        if(cur.getRate().isEmpty() || cur.getRate()==null){
+        if(cur.getRate()==null){
             oldRate=0d;
         }
         else {
